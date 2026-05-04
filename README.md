@@ -69,15 +69,29 @@ https://gsumin8327.dothome.co.kr/
 
 ## 📂 프로젝트 구조
 
-project-root/
-├ index.php
-├ css/
-├ js/
-├ img/
-├ board/
-├ data/
-├ db/
-└ ...
+```text
+SangsangMadang/
+├─ index.php
+├─ header.php
+├─ footer.php
+├─ define.php
+├─ board_list.php
+├─ board_view.php
+├─ board_form.php
+├─ board_modify_form.php
+├─ board_insert.php
+├─ board_modify.php
+├─ board_delete.php
+├─ css/
+├─ js/
+├─ img/
+├─ data/
+├─ db/
+├─ myPage/
+├─ sub01/
+├─ sub01_01/
+└─ html/
+```
 
 ---
 
