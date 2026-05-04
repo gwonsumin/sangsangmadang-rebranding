@@ -1,0 +1,176 @@
+<?php include "./define.php"; ?>
+<?php include "./board_branch_options.php"; ?>
+
+<?php
+$scale = 8;
+$page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+$search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
+
+if ($search) {
+    $safe_search = mysqli_real_escape_string($conn, $search);
+    $sql = "SELECT * FROM board WHERE subject LIKE '%$safe_search%' ORDER BY num DESC";
+} else {
+    $sql = "SELECT * FROM board ORDER BY num DESC";
+}
+
+$result = mysqli_query($conn, $sql);
+$total_record = mysqli_num_rows($result);
+
+$total_page = ($total_record % $scale == 0)
+    ? ($total_record / $scale)
+    : ceil($total_record / $scale);
+
+$start = ($page - 1) * $scale;
+$number = $total_record - $start;
+?>
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상상마당 | Notice</title>
+<script src="./js/jquery-1.9.1.min.js"></script>
+
+<link rel="icon" type="image/png" href="./img/favicon.png">
+<meta name="description" content="KT&G 상상마당">
+<meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
+<meta name="author" content="권수미">
+<meta name="generator" content="vsCode">
+
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/board.css">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+<?php include "./analytics.php"; ?>
+</head>
+
+<body class="notice-body">
+
+<header class="header">
+<?php include "./header.php"; ?>
+</header>
+
+<main>
+
+<section class="notice-page">
+    <div class="notice-inner">
+        <div class="notice-title-wrap">
+            <h2>Notice</h2>
+            <p>상상마당의 <span>새로운 소식</span>을 안내해드립니다.</p>
+        </div>
+
+        <div class="notice-toolbar">
+            <a href="./board_form.php" class="notice-write-btn">글 작성</a>
+
+            <form class="notice-search" method="get" action="board_list.php">
+                <input
+                    type="text"
+                    name="search"
+                    value="<?= htmlspecialchars($search) ?>"
+                    placeholder="검색어를 입력하세요."
+                >
+                <button type="submit" aria-label="검색"></button>
+            </form>
+        </div>
+
+        <div class="notice-table-wrap">
+            <table class="notice-table">
+                <colgroup>
+                    <col style="width: 12%;">
+                    <col style="width: 13%;">
+                    <col style="width: 45%;">
+                    <col style="width: 10%;">
+                    <col style="width: 20%;">
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th>Num</th>
+                        <th>Branch</th>
+                        <th>Title</th>
+                        <th>File</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+                    for ($i = $start; $i < $start + $scale && $i < $total_record; $i++) {
+                        mysqli_data_seek($result, $i);
+                        $row = mysqli_fetch_array($result);
+
+                        $num = $row["num"];
+                        $subject = $row["subject"];
+                        $category = isset($row["category"]) ? trim($row["category"]) : "";
+                        $branch_badge = get_board_branch_badge_label($category);
+                        $regist_day = date("Y.m.d", strtotime($row["regist_day"]));
+                        $file_name = $row["file_name"];
+                    ?>
+                    <tr>
+                        <td class="td-num"><?= $number ?></td>
+
+                        <td class="td-branch">
+                            <?php if ($branch_badge !== "") { ?>
+                                <span class="board-branch-badge"><?= htmlspecialchars($branch_badge) ?></span>
+                            <?php } ?>
+                        </td>
+
+                        <td class="td-subject">
+                            <a href="./board_view.php?num=<?= $num ?>&page=<?= $page ?>">
+                                <span class="subject-text"><?= htmlspecialchars($subject) ?></span>
+                            </a>
+                        </td>
+
+                        <td class="td-file">
+                            <?php if ($file_name) { ?>
+                                <img src="./img/icon/fileIcon.png" alt="첨부파일">
+                            <?php } ?>
+                        </td>
+
+                        <td class="td-date"><?= htmlspecialchars($regist_day) ?></td>
+                    </tr>
+                    <?php
+                        $number--;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <?php if ($total_page >= 2 && $page >= 2) {
+                $new_page = $page - 1; ?>
+                <a class="page-arrow" href="board_list.php?page=<?= $new_page ?>&search=<?= urlencode($search) ?>">&lt;</a>
+            <?php } ?>
+
+            <?php for ($i = 1; $i <= $total_page; $i++) { ?>
+                <?php if ($page == $i) { ?>
+                    <span class="current"><strong><?= $i ?></strong></span>
+                <?php } else { ?>
+                    <a class="page-num" href="board_list.php?page=<?= $i ?>&search=<?= urlencode($search) ?>"><?= $i ?></a>
+                <?php } ?>
+            <?php } ?>
+
+            <?php if ($total_page >= 2 && $page != $total_page) {
+                $new_page = $page + 1; ?>
+                <a class="page-arrow" href="board_list.php?page=<?= $new_page ?>&search=<?= urlencode($search) ?>">&gt;</a>
+            <?php } ?>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+<?php include "./footer.php"; ?>
+</footer>
+
+</body>
+</html>

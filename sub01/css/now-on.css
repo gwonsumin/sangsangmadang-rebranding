@@ -1,0 +1,260 @@
+/* ----------------------------------------------------------------------
+-----------------NOW ON---------------------------------------- */
+
+
+
+.now-on {
+    position: relative;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.now-on-header {
+    width: 100%;
+    max-width: 1258px;
+    margin: 0 auto 48px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.now-on-header h2 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.now-on-header .slider-control button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    margin-left: 25px;
+    transition: opacity 0.3s;
+}
+
+.now-on-header .slider-control button:hover {
+    opacity: 0.7;
+}
+
+.card-list {
+    display: flex;
+    /* gap: 20px; */
+    transition: all 0.3s ease;
+    width: max-content;
+}
+
+.card-list .nowon-item {
+    flex-shrink: 0;
+    width: 273px;
+}
+
+.card-list .nowon-item .poster {
+    width: 100%;
+    aspect-ratio: 273 / 365;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* HEART ICON */
+.card-list .nowon-item .poster::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    background: url(../img/icon/heart.png) no-repeat center / contain;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: all 0.3s;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+}
+
+/* 포스터 어둡게 */
+.card-list .nowon-item .poster::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+
+    transition: all 0.3s;
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+/* HOVER 시 */
+.card-list .nowon-item .poster:hover:before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.card-list .nowon-item .poster:hover:after {
+    opacity: 1;
+}
+
+.card-list .nowon-item .poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-list .info {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Pretendard', sans-serif;
+
+}
+
+.info .now-category {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    color: #626262;
+    margin-bottom: 18px;
+}
+
+.title {
+    width: 100%;
+    /* height: 80px; */
+    min-height: 3.5rem;
+    font-weight: 700;
+    font-size: 1.4375rem;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.desc {
+    width: 100%;
+    /* height: 70px; */
+    font-weight: 500;
+    color: #626262;
+    letter-spacing: -0.5px;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    margin-top: 30px;
+}
+
+.meta>span {
+    margin-bottom: 5px;
+}
+
+.meta>.place::before,
+.meta>.meta-date::before {
+    content: "";
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
+
+
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.meta>.place::before {
+    background-image: url(../img/icon/location.png);
+    position: relative;
+    top: 5px;
+}
+
+.meta>.meta-date::before {
+    background-image: url(../img/icon/calendar.png);
+}
+
+@media (max-width:1260px) {
+    .now-on {
+        top: 100px;
+    }
+
+    .now-on-header {
+        width: 100%;
+    }
+
+    .now-on-header h2 {
+        font-size: 2rem;
+    }
+
+    .nowon-item {
+        width: 220px;
+    }
+
+    .meta>.place::before,
+    .meta>.meta-date::before {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .now-on-header {
+        font-size: 1.8rem;
+    }
+
+    .slider-control {
+        display: none;
+    }
+
+    .card-list {
+        overflow-x: auto;
+        padding-bottom: 20px;
+    }
+
+    .nowon-item {
+        width: 200px;
+    }
+
+    .now-category {
+        font-size: 0.8rem;
+    }
+
+    .title {
+        font-size: 1.1rem;
+        min-height: auto;
+    }
+
+    .desc {
+        display: none;
+    }
+
+    .meta>span {
+        font-size: 0.8rem;
+    }
+
+    .meta>.place::before,
+    .meta>.meta-date::before {
+        display: none;
+    }
+}

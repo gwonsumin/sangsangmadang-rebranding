@@ -1,0 +1,167 @@
+/* --------------------------------------------------------------
+-----------------NOTICE---------------------------------------- */
+
+
+
+
+.notice {
+    max-width: 1260px;
+    display: flex;
+    flex-basis: 1258px;
+    padding: 60px 30px;
+    background-color: #fff;
+    border: 2px solid #000;
+    margin: 0 auto;
+    position: relative;
+    top: 100px;
+}
+
+.notice-left {
+    font-family: "Montserrat", sans-serif;
+    flex: 0 0 30%;
+    font-weight: 700;
+
+}
+
+.notice-left h2 {
+    font-size: 3.4856rem;
+    line-height: 1.2;
+    letter-spacing: -3px;
+    margin-bottom: 40px;
+}
+
+.notice-left a {
+    color: #000;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s;
+
+}
+
+.notice-left a::after {
+    content: "";
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+
+    background-image: url(../img/icon/arrow.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-left: 80px;
+
+    transition: all 0.3s;
+}
+
+.notice-left a:hover {
+    color: #626262;
+}
+
+.notice-left a:hover::after {
+    opacity: 0.6;
+    transform: translateX(20px);
+}
+
+.notice ul {
+    flex: 1;
+}
+
+.notice-info {
+    border-bottom: 2px solid #000;
+    padding: 10px 0;
+}
+
+.notice-info:last-child {
+    border-bottom: 0;
+}
+
+.notice-info a {
+    display: block;
+    color: #000;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    display: block;
+    padding: 20px 15px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.notice-info span {
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    padding: 2px 10px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.notice-info .info-title {
+    font-size: 1.4375rem;
+    line-height: 1.4;
+    padding-top: 10px;
+    letter-spacing: -1px;
+
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    transition: all 0.3s ease;
+
+}
+
+.notice-info:hover .info-title {
+    color: #f40159;
+    text-decoration: underline;
+}
+
+.notice-info .info-date {
+    font-size: 1.125rem;
+    font-weight: 400;
+    padding-top: 5px;
+}
+
+.notice-info {
+    border-bottom: 2px solid #000;
+    transition: all 0.3s ease;
+}
+
+
+.notice-info:hover {
+    background-color: #f9f9f9;
+}
+
+
+
+
+/* 반응형 */
+
+@media (max-width: 1260px) {
+    .notice {
+        flex-direction: column;
+        gap: 20px;
+        border: 0;
+    }
+
+    .notice-left {
+        margin-bottom: 50px;
+    }
+
+    .notice-left h2 {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .notice {
+        top: 50px;
+        padding: 40px 20px;
+    }
+
+    .notice-info .info-title {
+        font-size: 1.1rem;
+    }
+
+}

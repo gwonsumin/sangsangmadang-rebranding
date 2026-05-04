@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | 상상마당</title>
+    <link rel="stylesheet" href="./signIn/style.css">
+    <script src="./js/jquery-1.9.1.min.js"></script>
+
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+    <meta name="description" content="KT&G 상상마당">
+    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
+    <meta name="author" content="권수민">
+    <meta name="generator" content="vsCode">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body id="top">
+    <!-- HEADER -->
+    <header class="header">
+        <div id="headerWrap">
+            <h1 class="header-left">
+                <a href="./index.html" class="logo"><span class="blind">KT&G 상상마당</span>
+                </a>
+            </h1>
+            <div class="header-util">
+                <div class="api">
+                    <div class="api_wrap">
+                        <div class="date"></div>
+                        <div class="cicon"></div>
+                        <div class="ctemp"></div>
+                    </div>
+                </div>
+
+                <div class="m-menu-btn">
+                    <span></span><span></span><span></span>
+                </div>
+                <a href="./signIn.html" class="membership">Membership</a>
+            </div>
+        </div>
+
+        <!-- GNB -->
+        <nav class="gnb">
+            <ul>
+                <li>
+                    <a href="javascript:void(0);">SangsangMadaing</a>
+                    <ul class="depth2">
+                        <li><a href="javascript:void(0);">홍대</a></li>
+                        <li><a href="javascript:void(0);">논산</a></li>
+                        <li><a href="javascript:void(0);">춘천</a></li>
+                        <li><a href="javascript:void(0);">대치</a></li>
+                        <li><a href="javascript:void(0);">부산</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="./sub_01.html">Program</a>
+                    <ul class="depth2">
+                        <li><a href="javascript:void(0);">공연</a></li>
+                        <li><a href="javascript:void(0);">영화</a></li>
+                        <li><a href="javascript:void(0);">전시</a></li>
+                        <li><a href="javascript:void(0);">교육</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Stay & Rental</a>
+                    <ul class="depth2">
+                        <li><a href="javascript:void(0);">대관안내</a></li>
+                        <li><a href="javascript:void(0);">춘천스테이</a></li>
+                        <li><a href="javascript:void(0);">부산스테이</a></li>
+                        <li><a href="javascript:void(0);">아트캠핑빌리지</a></li>
+                        <li><a href="javascript:void(0);">문화예술교육센터</a></li>
+                        <li><a href="javascript:void(0);">부산 플레잉룸</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">F&B</a>
+                    <ul class="depth2">
+                        <li><a href="javascript:void(0);">댄싱 카페인</a></li>
+                        <li><a href="javascript:void(0);">세인트콕스</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0);">Design Shop</a></li>
+                <li>
+                    <a href="javascript:void(0);">News</a>
+                    <ul class="depth2">
+                        <li><a href="javascript:void(0);">공모/지원사업</a></li>
+                        <li><a href="javascript:void(0);">소식/이벤트</a></li>
+                        <li><a href="javascript:void(0);">웹진</a></li>
+                        <li><a href="javascript:void(0);">공지사항</a></li>
+                        <li><a href="javascript:void(0);">문의처</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <form action="#" id="searchBox">
+                <input type="search" name="searchBox">
+                <button type="submit" class="search-btn"><span class="blind">검색</span></button>
+            </form>
+
+        </nav>
+
+    </header>
+
+    <main class="login-container">
+        <section class="login-box">
+            <h1>Sign In</h1>
+            <form action="/login" method="post" class="login-form">
+                <div class="input-group">
+                    <label for="username" class="hidden">Enter your username</label>
+                    <div class="input-wrapper"><input type="id" name="id" id="id" placeholder="Enter your ID" required>
+                    </div>
+                    <p class="hleper-text">※ 영문 및 숫자, 6~20자리를 입력하세요.</p>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="password" class="hidden">password</label>
+                    <div class="input-wrapper"><input type="password" name="password" id="password"
+                            placeholder="Password" required></div>
+                    <p class="hleper-text">※ 영문과 숫자, 특수문자 조합 10~20자리를 입력하세요.</p>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-login">Login</button>
+                    <button type="button" class="btn btn-signup" onclick="location.href='./signUp.html'">Sign
+                        Up</button>
+                </div>
+
+                <div class="form-links"><a href="javascript:void(0)">Forgot your password?</a></div>
+            </form>
+        </section>
+    </main>
+    <!-- FOTTER -->
+    <footer>
+        <div id="footerWrap">
+            <div class="footer-top">
+                <div class="footer-logo-area">
+                    <h1 class="footer-logo"><img src="./img/footer-logo.png" alt="KT&G 상상마당"></h1>
+                    <p class="slogan">Creative Cultural Platform</p>
+                </div>
+                <ul class="topMenu"> <!-- 12-ex04 -->
+                    <li class="listStyle"><a href="javascript:void(0);">개인정보처리방침</a></li>
+                    <li class="listStyle"><a href="javascript:void(0);">이용약관</a></li>
+                    <li class="listStyle"><a href="javascript:void(0);">문의처</a></li>
+                </ul>
+            </div>
+            <nav class="footer-middle">
+                <div class="footer-group">
+                    <span>PROGRAM</span>
+                    <ul>
+                        <li><a href="javascript:void(0);">공연</a></li>
+                        <li><a href="javascript:void(0);">영화</a></li>
+                        <li><a href="javascript:void(0);">전시</a></li>
+                        <li><a href="javascript:void(0);">교육</a></li>
+                    </ul>
+                </div>
+                <div class="footer-group">
+                    <span>ABOUT</span>
+                    <ul>
+                        <li><a href="javascript:void(0);">브랜드 소개</a></li>
+                        <li><a href="javascript:void(0);">오시는 길 </a></li>
+                        <li><a href="javascript:void(0);">소식/이벤트</a></li>
+                        <li><a href="javascript:void(0);">공지사항</a></li>
+                        <li><a href="javascript:void(0);">문의처</a></li>
+                    </ul>
+                </div>
+                <div class="footer-group">
+                    <span>SPACE</span>
+                    <ul>
+                        <li><a href="javascript:void(0);">홍대</a></li>
+                        <li><a href="javascript:void(0);">논산</a></li>
+                        <li><a href="javascript:void(0);">춘천</a></li>
+                        <li><a href="javascript:void(0);">대치</a></li>
+                        <li><a href="javascript:void(0);">부산</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="footer-bottom">
+                <p class="copy-text">© 2025 SANGSANGMADANG. All Rights Reserved.<br>
+                    본 사이트는 포트폴리오용 리디자인 프로젝트입니다.</p>
+                <ul class="footer-SNS">
+                    <li><a href="javascript:void(0);"><img src="./img/icon/instagram.png" alt="instagram"></a></li>
+                    <li><a href="javascript:void(0);"><img src="./img/icon/youtube.png" alt="youtube"></a></li>
+                    <li><a href="javascript:void(0);"><img src="./img/icon/facebook-logo.png" alt="facebook"></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <!-- 페이지 위로 가는 버튼 -->
+    <a href="#top" class="btn-top">
+        <img src="./img/icon/arrow-up.png" alt="위로 가기">
+    </a>
+
+    <!-- 스크립트 작성 -->
+    <script src="./js/header.js"></script>
+    <script src="./js/weather.js"></script>
+
+</body>
+
+</html>

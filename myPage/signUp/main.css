@@ -1,0 +1,192 @@
+.signup-container {
+    position: relative;
+    top: 300px;
+    width: 100%;
+    max-width: 1620px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-box {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 50px 0;
+
+    border: 2px solid #000;
+}
+
+.signup-box h1 {
+    font-size: 4rem;
+    color: #F40159;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.signup-form {
+    width: 431px;
+    margin: 0 auto;
+}
+
+.input-group {
+    margin-left: 40px;
+    text-align: left;
+    margin: 60px 0 60px 0px;
+}
+
+.input-group label {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.input-wrapper input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    font-family: 'Pretendard', sans-serif;
+
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.input-wrapper:has(#userid):before,
+.input-wrapper:has(#userName):before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url(../img/icon/people.png) no-repeat;
+    background-size: contain;
+    margin-right: 13px;
+}
+
+.input-wrapper:has(#password):before,
+.input-wrapper:has(#confirmPw):before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url(../img/icon/unlock.png) no-repeat;
+    background-size: contain;
+    margin-right: 13px;
+}
+
+.input-wrapper:has(#userEmail):before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url(../img/icon/mail.png) no-repeat;
+    background-size: contain;
+    margin-right: 13px;
+}
+
+.input-wrapper:has(#tel):before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    display: inline-block;
+    background: url(../img/icon/telephone.png) no-repeat;
+    background-size: contain;
+    margin-right: 13px;
+}
+
+/* 체크박스 */
+.checkId {
+    position: absolute;
+    right: 5px;
+    bottom: 8px;
+    z-index: 10;
+}
+
+.checkId a {
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 4px 12px;
+    /* 버튼 크기 조절 */
+    transition: background 0.3s;
+}
+
+.agreement-group {
+    margin-bottom: 40px;
+}
+
+.check-item {
+    display: flex;
+    font-size: 0.85rem;
+    color: #868686;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.check-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.button-group {
+    width: 431px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-items: center;
+    align-items: center;
+}
+
+
+.btn-signup {
+    width: 100%;
+    margin: 10px 0 30px 0;
+    background-color: #000;
+    color: #fff;
+    padding: 18px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+
+.form-links {
+    margin-top: 18px;
+    font-size: 0.9rem;
+}
+
+.form-links a {
+    color: #000;
+    text-decoration: 2px underline #000;
+}
+
+
+/* 반응형 */
+@media (max-width:1260px) {
+    .signup-container {
+        top: 200px;
+    }
+
+}
