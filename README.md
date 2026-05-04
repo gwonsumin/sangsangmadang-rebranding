@@ -87,10 +87,15 @@ SangsangMadang/
 ├─ img/
 ├─ data/
 ├─ db/
-├─ myPage/
 ├─ sub01/
+│  ├─ style.css
+│  └─ main.css
 ├─ sub01_01/
-└─ html/
+│  ├─ style.css
+│  └─ main.css
+└─ myPage/
+   ├─ style.css
+   └─ main.css
 ```
 
 ---
