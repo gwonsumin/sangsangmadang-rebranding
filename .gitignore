@@ -3,3 +3,16 @@
 *.bak
 *.log
 **/data/testFile.pdf
+
+# Local environment and deployment artifacts
+.env
+.env.*
+*.sql
+*.zip
+
+# Runtime/upload artifacts (keep directory, ignore generated uploads)
+data/20*.jpg
+data/20*.jpeg
+data/20*.png
+data/20*.gif
+data/20*.webp

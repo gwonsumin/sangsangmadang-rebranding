@@ -1,6 +1,6 @@
 <?php
-include "./define.php";
-include "./board_branch_options.php";
+require_once "./define.php";
+require_once "./board_branch_options.php";
 
 $userid = isset($_SESSION["userid"]) ? trim($_SESSION["userid"]) : "";
 
@@ -12,6 +12,11 @@ if ($userid !== "admin") {
         history.back();
     </script>
     ";
+    exit;
+}
+
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); history.back();</script>";
     exit;
 }
 
@@ -41,7 +46,7 @@ if ($category === "" || !isset($branch_options[$category])) {
 
 $check_sql = "SELECT num FROM board WHERE num = $num";
 $check_result = mysqli_query($conn, $check_sql);
-$board_row = mysqli_fetch_assoc($check_result);
+$board_row = $check_result ? mysqli_fetch_assoc($check_result) : null;
 
 if (!$board_row) {
     echo "<script>alert('존재하지 않는 게시글입니다.'); location.href='./board_list.php?page=$page';</script>";
@@ -92,11 +97,11 @@ if (!isset($_FILES["upfile"]) || $_FILES["upfile"]["error"] === UPLOAD_ERR_NO_FI
     }
 }
 
-$safe_subject = mysqli_real_escape_string($conn, $subject);
-$safe_category = mysqli_real_escape_string($conn, $category);
-$safe_content = mysqli_real_escape_string($conn, $content);
-$safe_file_name = mysqli_real_escape_string($conn, $file_name);
-$safe_file_copied = mysqli_real_escape_string($conn, $file_copied);
+$safe_subject = db_escape($subject);
+$safe_category = db_escape($category);
+$safe_content = db_escape($content);
+$safe_file_name = db_escape($file_name);
+$safe_file_copied = db_escape($file_copied);
 
 $sql = "UPDATE board SET ";
 $sql .= "category = '$safe_category', ";
@@ -106,7 +111,10 @@ $sql .= "file_name = '$safe_file_name', ";
 $sql .= "file_copied = '$safe_file_copied' ";
 $sql .= "WHERE num = $num";
 
-mysqli_query($conn, $sql);
+if (!mysqli_query($conn, $sql)) {
+    echo "<script>alert('글 수정에 실패했습니다. DB 테이블/컬럼을 확인해주세요.'); history.back();</script>";
+    exit;
+}
 
 echo "
 <script>
