@@ -1,6 +1,6 @@
 <?php
-include "./define.php";
-include "./board_branch_options.php";
+require_once "./define.php";
+require_once "./board_branch_options.php";
 
 $subject = isset($_POST["subject"]) ? trim($_POST["subject"]) : "";
 $category = isset($_POST["category"]) ? trim($_POST["category"]) : "";
@@ -15,6 +15,11 @@ $file_copied = "";
 
 if ($subject === "") {
     echo "<script>alert('제목을 입력하세요.'); history.back();</script>";
+    exit;
+}
+
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); history.back();</script>";
     exit;
 }
 
@@ -53,18 +58,21 @@ if (isset($_FILES["upfile"]) && $_FILES["upfile"]["name"] != "") {
     }
 }
 
-$safe_subject = mysqli_real_escape_string($conn, $subject);
-$safe_category = mysqli_real_escape_string($conn, $category);
-$safe_content = mysqli_real_escape_string($conn, $content);
-$safe_name = mysqli_real_escape_string($conn, $name);
-$safe_id = mysqli_real_escape_string($conn, $id);
-$safe_file_name = mysqli_real_escape_string($conn, $file_name);
-$safe_file_copied = mysqli_real_escape_string($conn, $file_copied);
+$safe_subject = db_escape($subject);
+$safe_category = db_escape($category);
+$safe_content = db_escape($content);
+$safe_name = db_escape($name);
+$safe_id = db_escape($id);
+$safe_file_name = db_escape($file_name);
+$safe_file_copied = db_escape($file_copied);
 
 $sql = "INSERT INTO board (id, name, category, subject, content, regist_day, hit, file_name, file_copied)
         VALUES ('$safe_id', '$safe_name', '$safe_category', '$safe_subject', '$safe_content', '$regist_day', $hit, '$safe_file_name', '$safe_file_copied')";
 
-mysqli_query($conn, $sql);
+if (!mysqli_query($conn, $sql)) {
+    echo "<script>alert('글 등록에 실패했습니다. DB 테이블/컬럼을 확인해주세요.'); history.back();</script>";
+    exit;
+}
 
 echo "<script>
     alert('글이 등록되었습니다.');

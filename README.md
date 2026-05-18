@@ -105,6 +105,26 @@ SangsangMadang/
 - Dothome 서버를 이용한 웹사이트 배포
 - FileZilla를 통한 파일 업로드 및 관리
 
+> 현재 저장소는 GitHub 기준으로 코드 이력 관리 후,  
+> 실제 배포는 추후 FileZilla 또는 웹FTP 방식으로 진행하는 워크플로우를 기준으로 합니다.
+
+---
+
+## 🧾 GitHub 관리 기준
+
+- 코드 구조는 유지하고, 기능 변경/리팩토링 없이 이력만 관리합니다.
+- DB 연결 정보(`define.php`)는 공개 저장소 업로드 전 반드시 점검하세요.
+- 업로드 파일/로컬 산출물은 `.gitignore` 기준으로 제외합니다.
+- 배포용 파일 반영은 GitHub 커밋 이후 별도로 FileZilla/웹FTP에서 진행합니다.
+
+### 권장 작업 순서
+
+1. 변경 확인: `git status`
+2. 변경 검토: `git diff`
+3. 커밋 생성: `git add . && git commit -m "..."` 
+4. 원격 업로드: `git push`
+5. 서버 반영: FileZilla 또는 웹FTP로 배포 반영
+
 ---
 
 ## 🔐 테스트 계정

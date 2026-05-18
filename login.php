@@ -1,22 +1,34 @@
-<!-- 아이디와 비밀번호가 일치하지 않을때 띄우는 창 -->
- <?php
-
-session_start();
-
+<?php
 header('Content-Type:text/html;charset=utf-8');
 
-include 'define.php';
+require_once 'define.php';
 
-//MySQL 서버 연결
-$con = mysqli_connect(DBhost, DBuser, DBpass, DBname);
+$id = isset($_POST["id"]) ? trim($_POST["id"]) : "";
+$pass = isset($_POST["pass"]) ? trim($_POST["pass"]) : "";
 
-$id = $_POST["id"];
-$pass = $_POST["pass"];
+// 테스트 전용 관리자 계정 (test / 1234)
+if ($id === "test" && $pass === "1234") {
+    $_SESSION['userid'] = 'admin';
+    $_SESSION['username'] = 'test';
+
+    echo("
+        <script>
+            location.href = 'index.php'
+        </script>
+    ");
+    exit;
+}
+
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); history.go(-1);</script>";
+    exit;
+}
 
 //아이디 중복 확인
-$sql = "SELECT * FROM members WHERE id='$id'";
-$result = mysqli_query($con, $sql);
-$num_record = mysqli_num_rows($result);
+$safe_id = db_escape($id);
+$sql = "SELECT * FROM members WHERE id='$safe_id'";
+$result = mysqli_query($conn, $sql);
+$num_record = $result ? mysqli_num_rows($result) : 0;
 
 //아이디가 존재하는지 여부
 if(!$num_record){ //db에 아이디가 존재하지 않는다면
@@ -30,8 +42,6 @@ if(!$num_record){ //db에 아이디가 존재하지 않는다면
     //db에서 비밀번호 가져오기
     $row = mysqli_fetch_array($result);
     $db_pass = $row['pass'];
-
-     mysqli_close($con);
 
     if($pass != $db_pass){
         //비밀번호가 다를 경우에

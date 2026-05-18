@@ -1,5 +1,5 @@
 <?php
-include "./define.php";
+require_once "./define.php";
 
 $userid = isset($_SESSION["userid"]) ? trim($_SESSION["userid"]) : "";
 
@@ -14,6 +14,11 @@ if ($userid !== "admin") {
     exit;
 }
 
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); history.back();</script>";
+    exit;
+}
+
 $num = isset($_POST["num"]) ? (int)$_POST["num"] : 0;
 $page = isset($_POST["page"]) ? (int)$_POST["page"] : 1;
 
@@ -24,7 +29,7 @@ if ($num <= 0) {
 
 $sql = "SELECT file_copied FROM board WHERE num = $num";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
+$row = $result ? mysqli_fetch_assoc($result) : null;
 
 if (!$row) {
     echo "<script>alert('존재하지 않는 게시글입니다.'); location.href='./board_list.php?page=$page';</script>";
@@ -49,7 +54,10 @@ if ($file_copied !== "") {
 }
 
 $delete_sql = "DELETE FROM board WHERE num = $num";
-mysqli_query($conn, $delete_sql);
+if (!mysqli_query($conn, $delete_sql)) {
+    echo "<script>alert('글 삭제에 실패했습니다.'); history.back();</script>";
+    exit;
+}
 
 echo "
 <script>

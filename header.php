@@ -1,20 +1,20 @@
 <?php
+if (session_status() == PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
+}
+
 echo '<script async src="https://www.googletagmanager.com/gtag/js?id=G-V54276FK9T"></script>';
 echo '<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
   gtag("js", new Date());
   gtag("config", "G-V54276FK9T");
 </script>';
 ?>
 
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}      
-
- //로그인 여부 확인 (login.php에서 저장한 세션 변수명 기준)
- $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : "";?>
+	 //로그인 여부 확인 (login.php에서 저장한 세션 변수명 기준)
+	 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : "";?>
         
 <div id="headerWrap">
     <h1 class="header-left">
@@ -106,4 +106,3 @@ if (session_status() == PHP_SESSION_NONE) {
     </form>
 
 </nav>
-

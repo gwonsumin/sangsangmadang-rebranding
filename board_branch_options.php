@@ -1,5 +1,6 @@
 <?php
 
+if (!function_exists("get_board_branch_options")) {
 function get_board_branch_options()
 {
     return [
@@ -25,7 +26,9 @@ function get_board_branch_options()
         ],
     ];
 }
+}
 
+if (!function_exists("get_board_branch_badge_label")) {
 function get_board_branch_badge_label($branch_key)
 {
     $options = get_board_branch_options();
@@ -35,4 +38,5 @@ function get_board_branch_badge_label($branch_key)
     }
 
     return "";
+}
 }
