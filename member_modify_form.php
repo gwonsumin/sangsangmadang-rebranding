@@ -1,5 +1,5 @@
 <?php
-include "./define.php";
+require_once "./define.php";
 
 $userid = isset($_SESSION['userid']) ? trim($_SESSION['userid']) : "";
 
@@ -13,7 +13,17 @@ if ($userid === "") {
     exit;
 }
 
-$safe_userid = mysqli_real_escape_string($conn, $userid);
+if (!db_connected()) {
+    echo "
+    <script>
+        alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.');
+        location.href = 'index.php';
+    </script>
+    ";
+    exit;
+}
+
+$safe_userid = db_escape($userid);
 $sql = "SELECT name, pass, email, phone FROM members WHERE id='$safe_userid'";
 $result = mysqli_query($conn, $sql);
 $row = $result ? mysqli_fetch_assoc($result) : null;
@@ -45,10 +55,11 @@ $tel = $row['phone'] ?? "";
     <script src="./js/member_modify.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="SangsangMadang My Page">
-    <meta name="keywords" content="SangsangMadang, My Page">
-    <meta name="author" content="vsCode">
-    <meta name="generator" content="vsCode">
+    <?php
+    $page_meta_title = 'My Page';
+    $page_meta_description = 'KT&G 상상마당 회원 정보 확인·수정을 위한 마이페이지입니다.';
+    include './meta_sangsangmadang.php';
+    ?>
     <style>
         html {
             scroll-behavior: smooth;

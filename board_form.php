@@ -1,10 +1,6 @@
 <?php
-include "./define.php";
-include "./board_branch_options.php";
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once "./define.php";
+require_once "./board_branch_options.php";
 
 $userid = isset($_SESSION["userid"]) ? $_SESSION["userid"] : "";
 
@@ -32,10 +28,7 @@ $branch_options = get_board_branch_options();
     <script src="./js/jquery-1.9.1.min.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="KT&G 상상마당">
-    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-    <meta name="author" content="권수미">
-    <meta name="generator" content="vsCode">
+    <?php $page_meta_title = '상상마당 | New Notice'; include './meta_sangsangmadang.php'; ?>
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/board-new.css">

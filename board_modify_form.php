@@ -1,6 +1,6 @@
 <?php
-include "./define.php";
-include "./board_branch_options.php";
+require_once "./define.php";
+require_once "./board_branch_options.php";
 
 $userid = isset($_SESSION["userid"]) ? trim($_SESSION["userid"]) : "";
 
@@ -12,6 +12,11 @@ if ($userid !== "admin") {
         history.back();
     </script>
     ";
+    exit;
+}
+
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); location.href='./board_list.php';</script>";
     exit;
 }
 
@@ -30,7 +35,7 @@ if ($num <= 0) {
 
 $sql = "SELECT * FROM board WHERE num = $num";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
+$row = $result ? mysqli_fetch_assoc($result) : null;
 
 if (!$row) {
     echo "
@@ -68,10 +73,7 @@ if ($file_name !== "" && $file_copied !== "") {
     <script src="./js/jquery-1.9.1.min.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="KT&G 상상마당">
-    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-    <meta name="author" content="권수미">
-    <meta name="generator" content="vsCode">
+    <?php $page_meta_title = '상상마당 | Notice Update'; include './meta_sangsangmadang.php'; ?>
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/board-new.css">

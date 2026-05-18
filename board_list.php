@@ -1,29 +1,38 @@
-<?php include "./define.php"; ?>
-<?php include "./board_branch_options.php"; ?>
+<?php require_once "./define.php"; ?>
+<?php require_once "./board_branch_options.php"; ?>
 
 <?php
 $scale = 8;
 $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+$page = $page > 0 ? $page : 1;
 $search = isset($_GET["search"]) ? trim($_GET["search"]) : "";
 $userid = isset($_SESSION["userid"]) ? trim($_SESSION["userid"]) : "";
 $is_admin = ($userid === "admin");
+$where = "";
 
-if ($search) {
-    $safe_search = mysqli_real_escape_string($conn, $search);
-    $sql = "SELECT * FROM board WHERE subject LIKE '%$safe_search%' ORDER BY num DESC";
-} else {
-    $sql = "SELECT * FROM board ORDER BY num DESC";
+if ($search !== "" && db_connected()) {
+    $safe_search = db_escape($search);
+    $where = "WHERE subject LIKE '%$safe_search%'";
 }
 
-$result = mysqli_query($conn, $sql);
-$total_record = mysqli_num_rows($result);
+$count_sql = "SELECT COUNT(*) AS cnt FROM board $where";
+$count_result = db_connected() ? mysqli_query($conn, $count_sql) : false;
+$count_row = $count_result ? mysqli_fetch_assoc($count_result) : null;
+$total_record = $count_row ? (int)$count_row["cnt"] : 0;
 
 $total_page = ($total_record % $scale == 0)
     ? ($total_record / $scale)
     : ceil($total_record / $scale);
 
+if ($total_page > 0 && $page > $total_page) {
+    $page = $total_page;
+}
+
 $start = ($page - 1) * $scale;
 $number = $total_record - $start;
+
+$sql = "SELECT * FROM board $where ORDER BY num DESC LIMIT $start, $scale";
+$result = db_connected() ? mysqli_query($conn, $sql) : false;
 ?>
 
 <!DOCTYPE html>
@@ -36,10 +45,7 @@ $number = $total_record - $start;
 <script src="./js/jquery-1.9.1.min.js"></script>
 
 <link rel="icon" type="image/png" href="./img/favicon.png">
-<meta name="description" content="KT&G 상상마당">
-<meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-<meta name="author" content="권수미">
-<meta name="generator" content="vsCode">
+<?php $page_meta_title = '상상마당 | Notice'; include './meta_sangsangmadang.php'; ?>
 
 <link rel="stylesheet" href="./css/style.css">
 <link rel="stylesheet" href="./css/board.css">
@@ -114,9 +120,11 @@ $number = $total_record - $start;
                     </tr>
                     <?php } ?>
                     <?php
-                    for ($i = $start; $i < $start + $scale && $i < $total_record; $i++) {
-                        mysqli_data_seek($result, $i);
+                    for ($i = 0; $result && $i < $scale; $i++) {
                         $row = mysqli_fetch_array($result);
+                        if (!$row) {
+                            break;
+                        }
 
                         $num = $row["num"];
                         $subject = $row["subject"];
