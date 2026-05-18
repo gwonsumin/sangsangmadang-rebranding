@@ -11,10 +11,7 @@
     <script src="./js/jquery-1.9.1.min.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="KT&G 상상마당">
-    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-    <meta name="author" content="권수민">
-    <meta name="generator" content="vsCode">
+    <?php $page_meta_title = 'Sign In | 상상마당'; include './meta_sangsangmadang.php'; ?>
     <style>
         html {
             scroll-behavior: smooth;

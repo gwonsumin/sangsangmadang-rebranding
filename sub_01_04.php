@@ -9,10 +9,7 @@
     <script src="./js/jquery-1.9.1.min.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="KT&G 상상마당">
-    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-    <meta name="author" content="권수민">
-    <meta name="generator" content="vsCode">
+    <?php $page_meta_title = '너트30 페스티벌 - 크라잉넛 with 10CM'; include './meta_sangsangmadang.php'; ?>
     <style>
         html {
             scroll-behavior: smooth;

@@ -1,9 +1,10 @@
 <?php
-include "./define.php";
-include "./board_branch_options.php";
+require_once "./define.php";
+require_once "./board_branch_options.php";
 
 $num = isset($_GET["num"]) ? (int)$_GET["num"] : 0;
 $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+$page = $page > 0 ? $page : 1;
 
 // 추후 로그인/권한 기능이 추가되면 이 조건만 공통 권한 로직으로 바꾸면 됩니다.
 $userid = isset($_SESSION["userid"]) ? trim($_SESSION["userid"]) : "";
@@ -14,6 +15,11 @@ if ($num <= 0) {
     exit;
 }
 
+if (!db_connected()) {
+    echo "<script>alert('DB 연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.'); location.href='./board_list.php';</script>";
+    exit;
+}
+
 /* 조회수 증가 */
 $sql = "UPDATE board SET hit = hit + 1 WHERE num = $num";
 mysqli_query($conn, $sql);
@@ -21,7 +27,7 @@ mysqli_query($conn, $sql);
 /* 현재 글 조회 */
 $sql = "SELECT * FROM board WHERE num = $num";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
+$row = $result ? mysqli_fetch_assoc($result) : null;
 
 if (!$row) {
     echo "<script>alert('존재하지 않는 게시글입니다.'); location.href='./board_list.php';</script>";
@@ -75,12 +81,17 @@ foreach ($files as $file) {
 /* 이전 글 */
 $prev_sql = "SELECT num, subject FROM board WHERE num < $num ORDER BY num DESC LIMIT 1";
 $prev_result = mysqli_query($conn, $prev_sql);
-$prev_row = mysqli_fetch_assoc($prev_result);
+$prev_row = $prev_result ? mysqli_fetch_assoc($prev_result) : null;
 
 /* 다음 글 */
 $next_sql = "SELECT num, subject FROM board WHERE num > $num ORDER BY num ASC LIMIT 1";
 $next_result = mysqli_query($conn, $next_sql);
-$next_row = mysqli_fetch_assoc($next_result);
+$next_row = $next_result ? mysqli_fetch_assoc($next_result) : null;
+
+$page_meta_title = '상상마당 | Notice Detail';
+if ($subject !== '') {
+    $page_meta_description = $subject . ' | KT&G 상상마당 공지사항';
+}
 ?>
 
 <!DOCTYPE html>
@@ -94,10 +105,7 @@ $next_row = mysqli_fetch_assoc($next_result);
     <script src="./js/jquery-1.9.1.min.js"></script>
 
     <link rel="icon" type="image/png" href="./img/favicon.png">
-    <meta name="description" content="KT&G 상상마당">
-    <meta name="keywords" content="KT&G 상상마당,KT&G,상상마당">
-    <meta name="author" content="권수미">
-    <meta name="generator" content="vsCode">
+    <?php include './meta_sangsangmadang.php'; ?>
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/board-detail.css">
