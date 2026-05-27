@@ -7,6 +7,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KT&G 상상마당 | 복합문화공간</title>
+  <meta name="title" content="KT&G 상상마당 | 복합문화공간" />
+  <meta name="description" content="KT&G 상상마당은 공연·영화·전시·교육이 어우러진 복합문화공간입니다. 홍대·논산·춘천 등 지역별 프로그램과 소식을 만나보세요." />
+  <meta name="keywords" content="KT&G 상상마당,상상마당,KT&G,복합문화공간,공연,영화,전시,교육,문화공간,홍대,논산,춘천" />
+  <meta name="author" content="권수민" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="KT&G 상상마당 | 복합문화공간" />
+  <meta property="og:description" content="KT&G 상상마당은 공연·영화·전시·교육이 어우러진 복합문화공간입니다. 홍대·논산·춘천 등 지역별 프로그램과 소식을 만나보세요." />
+  <meta property="og:url" content="https://gsumin8327.dothome.co.kr/" />
+  <meta property="og:image" content="https://gsumin8327.dothome.co.kr/img/og/sangsangmadang-og.jpg" />
   <link rel="stylesheet" href="./css/style.css" />
 
   <script src="./js/jquery-1.9.1.min.js"></script>
@@ -19,7 +28,6 @@
 
 
   <link rel="icon" type="image/png" href="./img/favicon.png">
-  <?php $page_meta_title = 'KT&G 상상마당 | 복합문화공간'; include './meta_sangsangmadang.php'; ?>
   <style>
     html {
       scroll-behavior: smooth;
